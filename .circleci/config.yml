@@ -24,5 +24,5 @@ jobs:
       - run: 
          name: "Bulid & Push Docker Image"
          command: |
-           docker build -t 873930443481.dkr.ecr.eu-west-1.amazonaws.com/test-circleci:latest .
-           docker push 873930443481.dkr.ecr.eu-west-1.amazonaws.com/test-circleci:latest 
+           sudo docker build -t 873930443481.dkr.ecr.eu-west-1.amazonaws.com/test-circleci:latest .
+           sudo docker push 873930443481.dkr.ecr.eu-west-1.amazonaws.com/test-circleci:latest 
