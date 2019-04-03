@@ -17,6 +17,7 @@ jobs:
          command: |
            ls -la
            pwd
+           docker --version
       - run: 
          name: Log in to AWS ECR
          command: eval $(aws ecr get-login --no-include-email --region eu-west-1)
