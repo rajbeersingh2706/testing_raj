@@ -12,5 +12,6 @@ jobs:
            pwd
            echo $CIRCLE_SHA1
            echo $CIRCLE_TAG
+           echo $CIRCLE_BUILD_NUM
            echo $CIRCLE_BRANCH
      
