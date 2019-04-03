@@ -1,0 +1,27 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/openjdk:8-jdk
+    steps:
+      - checkout
+      - run:
+         name: install aws
+         command: |
+          echo "hello World"
+          curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+          unzip awscli-bundle.zip
+          sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
+      - run:
+         name: List the content
+         command: |
+           ls -la
+           pwd
+      - run: 
+         name: Log in to AWS ECR
+         command: eval $(aws ecr get-login --no-include-email --region eu-west-1)
+      - run: 
+         name: "Bulid & Push Docker Image"
+         command: |
+           docker build -t 873930443481.dkr.ecr.eu-west-1.amazonaws.com/test-circleci:latest .
+           docker push 873930443481.dkr.ecr.eu-west-1.amazonaws.com/test-circleci:latest 
