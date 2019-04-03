@@ -11,4 +11,5 @@ jobs:
            ls -la
            pwd
            echo $CIRCLE_SHA1
+           echo $CIRCLE_TAG
      
