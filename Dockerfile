@@ -1,2 +1,2 @@
-FROM python
+FROM ruby:2.3.1
 
