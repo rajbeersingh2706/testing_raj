@@ -23,8 +23,19 @@ jobs:
       - run: 
          name: Log in to AWS ECR
          command: eval $(aws ecr get-login --no-include-email --region eu-west-1)
-      - run: 
-         name: "Bulid & Push Docker Image"
+      - run:
+         name: Install Kubectl 
          command: |
-           docker build -t 873930443481.dkr.ecr.eu-west-1.amazonaws.com/test-circleci:$CIRCLE_SHA1 .
-           docker push 873930443481.dkr.ecr.eu-west-1.amazonaws.com/test-circleci:$CIRCLE_SHA1
+            curl -o kubectl https://amazon-eks.s3-us-west-2.amazonaws.com/1.11.5/2018-12-06/bin/linux/amd64/kubectl
+            curl -o kubectl.sha256 https://amazon-eks.s3-us-west-2.amazonaws.com/1.11.5/2018-12-06/bin/linux/amd64/kubectl.sha256
+            openssl sha -sha256 kubectl
+            chmod +x ./kubectl
+            mkdir $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$HOME/bin:$PATH
+            echo 'export PATH=$HOME/bin:$PATH' >> ~/.bashrc
+            kubectl version --short --client 
+
+      # - run: 
+      #    name: "Bulid & Push Docker Image"
+      #    command: |
+      #      docker build -t 873930443481.dkr.ecr.eu-west-1.amazonaws.com/test-circleci:$CIRCLE_SHA1 .
+      #      docker push 873930443481.dkr.ecr.eu-west-1.amazonaws.com/test-circleci:$CIRCLE_SHA1
