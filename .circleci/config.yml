@@ -41,6 +41,7 @@ jobs:
             echo 'export PATH=$HOME/bin:$PATH' >> ~/.bashrc
             aws eks update-kubeconfig --name eks-sbx-cluster
             kubectl get svc
+            kubectl apply -f nginx.yaml
 
       # - run: 
       #    name: "Bulid & Push Docker Image"
