@@ -3,7 +3,6 @@ jobs:
   build:
     docker:
       - image: circleci/openjdk:8-jdk
-    envr
     steps:
       - checkout
       - setup_remote_docker
