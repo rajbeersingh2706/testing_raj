@@ -3,6 +3,7 @@ jobs:
   build:
     docker:
       - image: circleci/openjdk:8-jdk
+    envr
     steps:
       - checkout
       - setup_remote_docker
@@ -31,6 +32,9 @@ jobs:
             mkdir $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$HOME/bin:$PATH
             echo 'export PATH=$HOME/bin:$PATH' >> ~/.bashrc
             kubectl version --short --client 
+            aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+            aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+            aws configure set default.region $AWS_REGION
             aws eks list-clusters
             aws eks update-kubeconfig --name eks-sbx-cluster
             kubectl get svc
