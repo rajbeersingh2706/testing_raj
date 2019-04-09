@@ -23,8 +23,12 @@ jobs:
       - run: 
          name: Log in to AWS ECR
          command: eval $(aws ecr get-login --no-include-email --region eu-west-1)
-      - run:
-         name: Install Kubectl 
-         command: |
-           sh shellscript.sh
-
+      - run: 
+         name: Publish to ECR
+         command: docker build -t 
+      # - run:
+      #    name: Install Kubectl 
+      #    command: |
+      #      sh shellscript.sh
+            docker build -t 873930443481.dkr.ecr.eu-west-1.amazonaws.com/test-circleci:latest -t 873930443481.dkr.ecr.eu-west-1.amazonaws.com/test-circleci:$CIRCLE_SHA1 .
+            docker push 873930443481.dkr.ecr.eu-west-1.amazonaws.com/test-circleci:$CIRCLE_SHA1
