@@ -29,8 +29,20 @@ jobs:
             docker build -t 873930443481.dkr.ecr.eu-west-1.amazonaws.com/test-circleci:latest -t 873930443481.dkr.ecr.eu-west-1.amazonaws.com/test-circleci:$CIRCLE_SHA1 .
             docker push 873930443481.dkr.ecr.eu-west-1.amazonaws.com/test-circleci:latest
             docker push 873930443481.dkr.ecr.eu-west-1.amazonaws.com/test-circleci:$CIRCLE_SHA1
-      # - run:
-      #    name: Install Kubectl 
-      #    command: |
-      #      sh shellscript.sh
+      - run:
+         name: Install Kubectl & Iam Authneticator
+         command: |
+           ./kubectl_install.sh
+      - run:
+         name: Deploy to Cluster
+         command: |
+           # Applying the New Image to Kubernetes
+            if kubectl describe deployment/nginx-deployment; then
+              echo "if Condition not exist"
+              kubectl set image deployment nginx-deployment nginx=nginx:$CIRCLE_SHA1 --record
+            else
+              echo "Does not Exit"
+              kubectl create -f nginx.yaml --record
+            fi
+
 

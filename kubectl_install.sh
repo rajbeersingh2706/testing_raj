@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 # Installing Kubectl 
 curl -o kubectl https://amazon-eks.s3-us-west-2.amazonaws.com/1.11.5/2018-12-06/bin/linux/amd64/kubectl
 chmod +x ./kubectl
@@ -20,17 +19,3 @@ cp ./aws-iam-authenticator $HOME/bin/aws-iam-authenticator && export PATH=$HOME/
 echo 'export PATH=$HOME/bin:$PATH' >> ~/.bashrc
 aws eks update-kubeconfig --name eks-sbx-cluster
 kubectl get svc
-
-# Pushing the Image to ECR
-
-#docker build -t 873930443481.dkr.ecr.eu-west-1.amazonaws.com/test-circleci:$CIRCLE_SHA1 .
-#docker push 873930443481.dkr.ecr.eu-west-1.amazonaws.com/test-circleci:$CIRCLE_SHA1
-
-# Applying the New Image to Kubernetes
-if kubectl describe deployment/nginx-deployment; then
-  echo "if Condition"
-  kubectl set image deployment nginx-deployment nginx=nginx:latest --record
-else
- echo "else Exits"
- kubectl create -f nginx.yaml --record
-fi
