@@ -26,6 +26,8 @@ jobs:
       - run: 
          name: Publish to ECR
          command: |
+            commit=$(git rev-parse --short HEAD)
+            echo $commit
             docker build -t 873930443481.dkr.ecr.eu-west-1.amazonaws.com/test-circleci:latest -t 873930443481.dkr.ecr.eu-west-1.amazonaws.com/test-circleci:$CIRCLE_SHA1 .
             docker push 873930443481.dkr.ecr.eu-west-1.amazonaws.com/test-circleci:latest
             docker push 873930443481.dkr.ecr.eu-west-1.amazonaws.com/test-circleci:$CIRCLE_SHA1
