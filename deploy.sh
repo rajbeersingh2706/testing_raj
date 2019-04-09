@@ -19,3 +19,14 @@ cp ./aws-iam-authenticator $HOME/bin/aws-iam-authenticator && export PATH=$HOME/
 echo 'export PATH=$HOME/bin:$PATH' >> ~/.bashrc
 aws eks update-kubeconfig --name eks-sbx-cluster
 kubectl get svc
+
+
+CIRCLE_SHA1=$1
+# Applying the New Image to Kubernetes
+if kubectl describe deployment/nginx-deployment; then
+  echo "if Condition not exist"
+  kubectl set image deployment nginx-deployment nginx=nginx:$CIRCLE_SHA1 --record
+else
+   echo "Does not Exit"
+   kubectl create -f nginx.yaml --record
+fi
