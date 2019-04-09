@@ -31,6 +31,6 @@ if kubectl describe deployment/nginx-deployment; then
   echo "if Condition"
   kubectl set image deployment nginx-deployment nginx=nginx:latest --record
 else
- echo "Not Exits"
+ echo "else Exits"
  kubectl create -f nginx.yaml --record
 fi
